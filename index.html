@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+CTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -1108,7 +1108,7 @@
         <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
         <button class="nav-btn" onclick="showPage('schedule')">📅 Schedule</button>
         <button class="nav-btn" onclick="showPage('games')">🎮 Games</button>
-        <button class="nav-btn" onclick="showPage('creative')">🎨 Creative</button>
+        <button class="nav-btn" onclick="showPage('art')">🎨 Art</button>
         <button class="nav-btn" onclick="showPage('videos')">🎥 Videos</button>
         <button class="nav-btn" onclick="showPage('class')">👥 Class</button>
         <button class="nav-btn" onclick="showPage('ai')">🤖 AI</button>
@@ -1154,7 +1154,7 @@
                 </div>
                 
                 <div class="quick-links">
-                    <span class="quick-link" onclick="showPage('creative')">🎨 Creative</span>
+                    <span class="quick-link" onclick="showPage('art')">🎨 Art</span>
                     <span class="quick-link" onclick="showPage('games')">🎮 Games</span>
                     <span class="quick-link" onclick="showPage('videos')">🎥 Videos</span>
                     <span class="quick-link" onclick="showPage('ai')">🤖 AI Help</span>
@@ -1184,7 +1184,7 @@
                 <span style="color: #1E3A0A;">Don't forget your homework!</span>
             </div>
             
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
@@ -1206,13 +1206,13 @@
                 <span style="color: #1E3A0A;">Newton points: <span id="mascotPoints">150</span></span>
             </div>
             
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
         <!-- ТВОРЧЕСКИЙ РАЗДЕЛ                            -->
         <!-- ============================================ -->
-        <div id="creativePage" class="page" style="display: none;">
+        <div id="artPage" class="page" style="display: none;">
             <h1>🎨 Creative Space</h1>
             
             <div class="creative-tabs">
@@ -1274,7 +1274,7 @@
                 </div>
             </div>
             
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
@@ -1293,7 +1293,7 @@
                 <span style="color: #1E3A0A;">Watch and learn with Newton!</span>
             </div>
             
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
@@ -1314,7 +1314,7 @@
                 <span style="color: #1E3A0A;">Class mascot: <span id="classNameMascot">Newton</span></span>
             </div>
             
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
@@ -1345,7 +1345,7 @@
                     <button class="send-btn" onclick="sendMessage()">→</button>
                 </div>
             </div>
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
 
         <!-- ============================================ -->
@@ -1378,7 +1378,7 @@
             <!-- МЕСТО 15: МАСКОТ В ОЦЕНКАХ               -->
             <!-- Размер: 25x25                             -->
             <!-- ======================================== -->
-            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+            <button class="home-btn" onclick="showPage('home')">← Back Home</button>
         </div>
     </div>
 
@@ -1631,7 +1631,7 @@
         // ФУНКЦИИ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ                 //
         // ============================================ //
         function showPage(pageId) {
-            const pages = ['home', 'schedule', 'games', 'creative', 'videos', 'class', 'ai', 'grades'];
+            const pages = ['home', 'schedule', 'games', 'art', 'videos', 'class', 'ai', 'grades'];
             pages.forEach(p => {
                 const el = document.getElementById(p + 'Page');
                 if (el) el.style.display = 'none';
@@ -1644,7 +1644,7 @@
             
             if (pageId === 'schedule') fillSchedule();
             if (pageId === 'games') fillGames();
-            if (pageId === 'creative') { fillArtFeed(); fillLiteratureFeed(); }
+            if (pageId === 'art') { fillArtFeed(); fillLiteratureFeed(); }
             if (pageId === 'videos') fillVideos();
             if (pageId === 'class') fillClassList();
             if (pageId === 'grades') fillGrades();
