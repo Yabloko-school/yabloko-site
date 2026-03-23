@@ -1,0 +1,2075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Yabloko School Portal</title>
+    <style>
+        /* ============================================ */
+        /* СТИЛИ - ЗДЕСЬ КАРТИНКИ НЕ ВСТАВЛЯЮТСЯ        */
+        /* ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f1f8e9, #e8f5e9);
+            min-height: 100vh;
+            transition: all 0.5s ease;
+        }
+
+        /* Шапка с баннером */
+        .header-banner {
+            background: linear-gradient(120deg, #4A9B22, #6B8E23, #3D7A1A);
+            padding: 0.8rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-radius: 0 0 30px 30px;
+            box-shadow: 0 4px 20px rgba(74, 155, 34, 0.3);
+            margin-bottom: 0.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .banner-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .mascot-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.5);
+            padding: 0.3rem 1rem 0.3rem 0.3rem;
+            border-radius: 50px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* ============================================ */
+        /* МЕСТО 1: КРУГЛАЯ АВАТАРКА МАСКОТА В ШАПКЕ   */
+        /* Размер: 45x45 пикселей                      */
+        /* Чтобы вставить картинку, замените содержимое */
+        /* <span id="mascotText"> на <img src="путь">   */
+        /* ============================================ */
+        .mascot-placeholder {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #8BC34A, #AED581);
+            border: 2px solid white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .mascot-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .mascot-placeholder span {
+            color: #2D5E0F;
+            font-size: 0.7rem;
+            text-align: center;
+            padding: 0.2rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 2: ТЕКСТ ЛОГОТИПА МОЖНО ЗАМЕНИТЬ НА   */
+        /* КАРТИНКУ ЛОГОТИПА ШКОЛЫ                      */
+        /* Вставьте <img src="logo.png" height="40">    */
+        /* ============================================ */
+        .banner-text {
+            font-size: 1.2rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #F5F5DC, #FAF0E6, #FFF8DC);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .banner-decoration {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 3: ДЕКОРАТИВНЫЕ ИКОНКИ В ШАПКЕ        */
+        /* Можно заменить эмодзи на маленькие картинки  */
+        /* Например: <img src="icon-book.png" width="24"> */
+        /* ============================================ */
+        .banner-decoration span {
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Мобильная навигация */
+        .mobile-nav {
+            display: flex;
+            overflow-x: auto;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            margin: 0.5rem 1rem;
+            border-radius: 50px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            white-space: nowrap;
+            box-shadow: 0 2px 15px rgba(74, 155, 34, 0.2);
+        }
+
+        .mobile-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 50px;
+            background: white;
+            color: #2D5E0F;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+            border: 1px solid rgba(74, 155, 34, 0.3);
+            flex-shrink: 0;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(45deg, #AED581, #8BC34A);
+        }
+
+        .nav-btn.active {
+            background: linear-gradient(45deg, #4A9B22, #6B8E23);
+            color: white;
+            font-weight: 600;
+            border-color: white;
+            box-shadow: 0 4px 12px rgba(74, 155, 34, 0.3);
+        }
+
+        /* Основной контент */
+        .page-container {
+            max-width: 1200px;
+            margin: 0.5rem auto;
+            padding: 0 1rem;
+        }
+
+        .page {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(5px);
+            border-radius: 25px;
+            padding: 1.2rem;
+            box-shadow: 0 10px 30px rgba(74, 155, 34, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            animation: fadeIn 0.4s ease;
+            margin-bottom: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #4A9B22, #6B8E23, #3D7A1A);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            color: #2D5E0F;
+            margin-bottom: 0.8rem;
+            font-weight: 400;
+            font-size: 1.2rem;
+        }
+
+        h3 {
+            color: #1E3A0A;
+            margin: 0.8rem 0 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Главная страница - Help Center */
+        .help-center {
+            background: white;
+            border-radius: 20px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            box-shadow: 0 4px 15px rgba(74, 155, 34, 0.15);
+            border-left: 5px solid #4A9B22;
+        }
+
+        .help-center h2 {
+            color: #4A9B22;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .help-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 4: КНОПКИ HELP CENTER С ИКОНКАМИ      */
+        /* В каждом <span> можно вставить картинку     */
+        /* Вместо эмодзи: <img src="icon-name.png" width="32"> */
+        /* ============================================ */
+        .help-btn {
+            background: #F1F8E9;
+            border: 2px solid #AED581;
+            border-radius: 15px;
+            padding: 1.2rem 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2D5E0F;
+            cursor: default;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .help-btn span {
+            font-size: 2rem;
+        }
+
+        .help-btn:hover {
+            background: #AED581;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(74, 155, 34, 0.2);
+        }
+
+        .help-btn.instructions { border-color: #4A9B22; }
+        .help-btn.students { border-color: #6B8E23; }
+        .help-btn.parents { border-color: #8BC34A; }
+        .help-btn.teachers { border-color: #AED581; }
+        .help-btn.faq { border-color: #3D7A1A; }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .quick-link {
+            background: #F1F8E9;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            color: #4A9B22;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: #4A9B22;
+            color: white;
+        }
+
+        /* Расписание */
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .day-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 18px;
+            padding: 1rem;
+            border-left: 4px solid;
+            transition: transform 0.3s ease;
+        }
+
+        .day-card:nth-child(1) { border-color: #4A9B22; }
+        .day-card:nth-child(2) { border-color: #6B8E23; }
+        .day-card:nth-child(3) { border-color: #8BC34A; }
+        .day-card:nth-child(4) { border-color: #AED581; }
+        .day-card:nth-child(5) { border-color: #3D7A1A; }
+        .day-card:nth-child(6) { border-color: #2D5E0F; }
+        .day-card:nth-child(7) { border-color: #1E3A0A; }
+
+        .day-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #1E3A0A;
+        }
+
+        .subject-item {
+            padding: 0.4rem 0;
+            border-bottom: 1px dashed #AED581;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .subject-name {
+            font-weight: 600;
+            color: #2D5E0F;
+        }
+
+        .homework {
+            color: #6B8E23;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* Игры */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(74, 155, 34, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(74, 155, 34, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(74, 155, 34, 0.3);
+        }
+
+        .game-emoji {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-title {
+            font-weight: 600;
+            color: #2D5E0F;
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+
+        .game-subject {
+            color: #4A9B22;
+            font-size: 0.8rem;
+            background: #F1F8E9;
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            margin-top: 0.3rem;
+        }
+
+        .game-mascot-badge {
+            background: #AED581;
+            border-radius: 12px;
+            padding: 0.2rem 0.5rem;
+            font-size: 0.7rem;
+            color: #1E3A0A;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        /* Творческий раздел */
+        .creative-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .creative-tab {
+            padding: 0.5rem 1.2rem;
+            border: none;
+            border-radius: 30px;
+            background: white;
+            color: #2D5E0F;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #AED581;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .creative-tab.active {
+            background: linear-gradient(45deg, #4A9B22, #6B8E23);
+            color: white;
+            border-color: white;
+        }
+
+        /* Лента постов */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .feed-post {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(74, 155, 34, 0.15);
+            border: 1px solid #F1F8E9;
+        }
+
+        .post-header {
+            padding: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid #F1F8E9;
+        }
+
+        .post-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A9B22, #8BC34A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .post-author-info {
+            flex: 1;
+        }
+
+        .post-author-name {
+            font-weight: 600;
+            color: #1E3A0A;
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: #6B8E23;
+        }
+
+        .post-content {
+            padding: 0.8rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 5: КАРТИНКИ В ПОСТАХ ART GALLERY      */
+        /* В функции fillArtFeed() можно заменить       */
+        /* ${post.image} на <img src="art.jpg">         */
+        /* Размер любой, подстроится                    */
+        /* ============================================ */
+        .art-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #AED581, #8BC34A);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .art-title {
+            font-weight: 600;
+            color: #1E3A0A;
+            margin-bottom: 0.3rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 6: ОБЛОЖКИ КНИГ В LITERATURE         */
+        /* В функции fillLiteratureFeed() можно заменить */
+        /* ${story.cover} на <img src="book-cover.jpg"> */
+        /* ============================================ */
+        .story-cover {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #6B8E23, #4A9B22);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 0.8rem;
+            position: relative;
+        }
+
+        .read-btn {
+            background: #4A9B22;
+            color: white;
+            border: none;
+            padding: 0.5rem 2rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .read-btn:hover {
+            background: #2D5E0F;
+            transform: scale(1.05);
+        }
+
+        .story-text {
+            max-height: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: #4A9B22;
+            padding: 0.5rem;
+            background: #F1F8E9;
+            border-radius: 10px;
+        }
+
+        /* Действия с постами */
+        .post-actions {
+            padding: 0.8rem;
+            border-top: 1px solid #F1F8E9;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            color: #4A9B22;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            color: #2D5E0F;
+            transform: scale(1.1);
+        }
+
+        .like-count {
+            font-weight: 600;
+        }
+
+        .likes-goal {
+            font-size: 0.8rem;
+            color: #8BC34A;
+            margin-left: 0.3rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 7: АВАТАРКИ ПОПУЛЯРНЫХ КАНАЛОВ       */
+        /* В каждом кружке можно вставить <img src="..."> */
+        /* Размер 60x60 пикселей                        */
+        /* ============================================ */
+        .channel-header {
+            background: linear-gradient(135deg, #4A9B22, #8BC34A);
+            border-radius: 20px;
+            padding: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .channel-avatar-large {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #4A9B22;
+        }
+
+        .follow-btn {
+            background: white;
+            color: #4A9B22;
+            border: none;
+            padding: 0.5rem 2rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        /* Видео */
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 5px 12px rgba(74, 155, 34, 0.15);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .video-thumbnail {
+            height: 100px;
+            background: linear-gradient(135deg, #AED581, #8BC34A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .play-button {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: #4A9B22;
+        }
+
+        .video-info {
+            padding: 0.7rem;
+        }
+
+        .video-title {
+            font-weight: 600;
+            color: #1E3A0A;
+            font-size: 0.9rem;
+            margin-bottom: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-subject {
+            color: #4A9B22;
+            font-size: 0.7rem;
+            background: #F1F8E9;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        /* Список класса */
+        .class-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 0.8rem;
+        }
+
+        .student-card {
+            background: white;
+            border-radius: 18px;
+            padding: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 3px 10px rgba(74, 155, 34, 0.15);
+        }
+
+        .student-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 8: АВАТАРКИ УЧЕНИКОВ                  */
+        /* В функции fillClassList() можно заменить     */
+        /* ${student.initials} на <img src="photo.jpg"> */
+        /* Размер 35x35 пикселей                        */
+        /* ============================================ */
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A9B22, #8BC34A);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .student-name {
+            font-weight: 500;
+            color: #1E3A0A;
+            font-size: 0.9rem;
+        }
+
+        .chat-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.3rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Чат с нейросетью */
+        .ai-chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 20px;
+            padding: 0.8rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .message {
+            max-width: 85%;
+            padding: 0.6rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background: linear-gradient(135deg, #AED581, #8BC34A);
+            color: #1E3A0A;
+        }
+
+        .ai-message {
+            align-self: flex-start;
+            background: linear-gradient(135deg, #F1F8E9, #E8F5E9);
+            color: #1E3A0A;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 0.5rem;
+            padding: 0.5rem;
+            background: white;
+            border-radius: 30px;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.6rem 1rem;
+            border: none;
+            outline: none;
+            background: #f5f5f5;
+            border-radius: 25px;
+            font-size: 0.9rem;
+        }
+
+        .send-btn {
+            background: linear-gradient(45deg, #4A9B22, #6B8E23);
+            border: none;
+            border-radius: 25px;
+            padding: 0.6rem 1.2rem;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .ai-info {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 12px;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            text-align: center;
+            font-size: 0.9rem;
+            border: 1px dashed #AED581;
+        }
+
+        .ai-name-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4A9B22;
+            margin-left: 0.5rem;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 9: РАМКА ДЛЯ КАРТИНКИ В ОЦЕНКАХ       */
+        /* САМОЕ ВАЖНОЕ МЕСТО ДЛЯ ВАШЕГО РИСУНКА!      */
+        /* Используйте функцию setGradesPicture()      */
+        /* Размер рамки 100x100 пикселей                */
+        /* ============================================ */
+        .grades-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .grades-picture-frame {
+            width: 100px;
+            height: 100px;
+            border: 3px solid #4A9B22;
+            border-radius: 20px;
+            background: #F1F8E9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(74, 155, 34, 0.3);
+        }
+
+        .grades-picture-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .grades-picture-frame span {
+            color: #4A9B22;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        .grades-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1rem;
+        }
+
+        .subject-grade {
+            background: white;
+            border-radius: 18px;
+            padding: 1rem;
+            box-shadow: 0 3px 10px rgba(74, 155, 34, 0.1);
+        }
+
+        .subject-header h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: #1E3A0A;
+        }
+
+        .average-grade {
+            background: #AED581;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            display: inline-block;
+            color: #1E3A0A;
+        }
+
+        .grades-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.5rem;
+        }
+
+        .grade-item {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #F1F8E9, #E8F5E9);
+            color: #1E3A0A;
+            font-size: 0.9rem;
+        }
+
+        /* Кнопка домой */
+        .home-btn {
+            margin-top: 1.5rem;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(45deg, #AED581, #8BC34A);
+            border: none;
+            border-radius: 30px;
+            color: #1E3A0A;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        /* Модальное окно для игр */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 25px;
+            padding: 1.5rem;
+            max-width: 400px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 0.5rem;
+            right: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #4A9B22;
+        }
+
+        .game-area {
+            background: linear-gradient(135deg, #F1F8E9, #ffffff);
+            border-radius: 20px;
+            padding: 1rem;
+            text-align: center;
+            margin: 1rem 0;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ============================================ */
+        /* МЕСТО 10: МАЛЕНЬКИЕ МАСКОТЫ ВЕЗДЕ           */
+        /* Все элементы с классом mini-mascot          */
+        /* В функции updateAllMascots() можно заменить  */
+        /* '🐶' на <img src="mini-mascot.jpg">         */
+        /* Размер 25x25 пикселей                        */
+        /* ============================================ */
+        .mini-mascot {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4A9B22, #8BC34A);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.3rem;
+            font-size: 0.8rem;
+            overflow: hidden;
+            color: white;
+        }
+
+        .mini-mascot img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 380px) {
+            .games-grid, .videos-grid, .grades-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .banner-text {
+                font-size: 1rem;
+            }
+            
+            .mascot-container {
+                padding: 0.2rem 0.8rem 0.2rem 0.2rem;
+            }
+
+            .creative-tab {
+                min-width: 100%;
+            }
+
+            .grades-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Модальное окно для историй */
+        .story-modal-content {
+            max-width: 600px;
+        }
+
+        .full-story-text {
+            white-space: pre-wrap;
+            line-height: 1.6;
+            color: #1E3A0A;
+            padding: 1rem;
+            background: #F1F8E9;
+            border-radius: 15px;
+        }
+
+        /* Запрет на изменение аватарок */
+        .mascot-placeholder {
+            cursor: default;
+        }
+
+        .mascot-placeholder:hover {
+            transform: none;
+            border-color: white;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================ -->
+    <!-- ШАПКА САЙТА                                   -->
+    <!-- ============================================ -->
+    <div class="header-banner">
+        <div class="banner-content">
+            <div class="mascot-container">
+                <!-- ======================================== -->
+                <!-- МЕСТО 1: КРУГЛАЯ АВАТАРКА МАСКОТА       -->
+                <!-- Размер: 45x45                            -->
+                <!-- Вставьте: <img src="mascot.jpg">         -->
+                <!-- ======================================== -->
+                <div class="mascot-placeholder">
+                    <img id="mascotImage" src="images_yab/mascot.png" alt="Mascot";>
+                    <!-- ЗАМЕНИТЕ ВЫШЕ: 
+                         Удалите строки с img и span, вставьте:
+                         <img src="mymascot.jpg" style="width:45px;height:45px;border-radius:50%;"> 
+                    -->
+                </div>
+                <!-- ======================================== -->
+                <!-- МЕСТО 2: ЛОГОТИП ШКОЛЫ                   -->
+                <!-- Можно заменить текст на картинку логотипа -->
+                <!-- Вставьте: <img src="logo.png" height="40"> -->
+                <!-- ======================================== -->
+                <span class="banner-text">Yabloko</span>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 3: МАЛЕНЬКАЯ АВАТАРКА В ШАПКЕ      -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+        </div>
+        <!-- ======================================== -->
+        <!-- МЕСТО 4: ДЕКОРАТИВНЫЕ ИКОНКИ В ШАПКЕ     -->
+        <!-- Можно заменить эмодзи на картинки        -->
+        <!-- ======================================== -->
+        <div class="banner-decoration">
+            <span>📚</span> <!-- ЗАМЕНИТЬ: <img src="icon-book.png" width="24"> -->
+            <span>✏️</span>  <!-- ЗАМЕНИТЬ: <img src="icon-pencil.png" width="24"> -->
+            <span>🎨</span>  <!-- ЗАМЕНИТЬ: <img src="icon-art.png" width="24"> -->
+        </div>
+    </div>
+
+    <!-- НАВИГАЦИЯ (без картинок) -->
+    <div class="mobile-nav">
+        <button class="nav-btn active" onclick="showPage('home')">🏠 Home</button>
+        <button class="nav-btn" onclick="showPage('schedule')">📅 Schedule</button>
+        <button class="nav-btn" onclick="showPage('games')">🎮 Games</button>
+        <button class="nav-btn" onclick="showPage('creative')">🎨 Creative</button>
+        <button class="nav-btn" onclick="showPage('videos')">🎥 Videos</button>
+        <button class="nav-btn" onclick="showPage('class')">👥 Class</button>
+        <button class="nav-btn" onclick="showPage('ai')">🤖 AI</button>
+        <button class="nav-btn" onclick="showPage('grades')">📊 Grades</button>
+    </div>
+
+    <!-- КОНТЕЙНЕР ДЛЯ СТРАНИЦ -->
+    <div class="page-container" id="pageContainer">
+        <!-- ============================================ -->
+        <!-- ГЛАВНАЯ СТРАНИЦА                             -->
+        <!-- ============================================ -->
+        <div id="homePage" class="page">
+            <h1>🏫 Welcome to Yabloko!</h1>
+            
+            <div class="help-center">
+                <h2>📞 Help Center</h2>
+                
+                <div class="help-buttons">
+                    <!-- ==================================== -->
+                    <!-- МЕСТО 5: КНОПКИ С ИКОНКАМИ          -->
+                    <!-- В каждом <span> можно вставить картинку -->
+                    <!-- ==================================== -->
+                    <div class="help-btn instructions">
+                        <span>📋</span> <!-- ЗАМЕНИТЬ: <img src="icon-instructions.png" width="32"> -->
+                        Instructions
+                    </div>
+                    <div class="help-btn students">
+                        <span>👨‍🎓</span> <!-- ЗАМЕНИТЬ: <img src="icon-students.png" width="32"> -->
+                        Tips for Students
+                    </div>
+                    <div class="help-btn parents">
+                        <span>👪</span> <!-- ЗАМЕНИТЬ: <img src="icon-parents.png" width="32"> -->
+                        Tips for Parents
+                    </div>
+                    <div class="help-btn teachers">
+                        <span>👩‍🏫</span> <!-- ЗАМЕНИТЬ: <img src="icon-teachers.png" width="32"> -->
+                        Tips for Teachers
+                    </div>
+                    <div class="help-btn faq">
+                        <span>❓</span> <!-- ЗАМЕНИТЬ: <img src="icon-faq.png" width="32"> -->
+                        FAQ
+                    </div>
+                </div>
+                
+                <div class="quick-links">
+                    <span class="quick-link" onclick="showPage('creative')">🎨 Creative</span>
+                    <span class="quick-link" onclick="showPage('games')">🎮 Games</span>
+                    <span class="quick-link" onclick="showPage('videos')">🎥 Videos</span>
+                    <span class="quick-link" onclick="showPage('ai')">🤖 AI Help</span>
+                </div>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 6: БАННЕР С МАСКОТОМ НА ГЛАВНОЙ   -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА РАСПИСАНИЯ                          -->
+        <!-- ============================================ -->
+        <div id="schedulePage" class="page" style="display: none;">
+            <h1>📅 Weekly Schedule</h1>
+            <div class="schedule-grid" id="scheduleGrid"></div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 7: МАСКОТ В РАСПИСАНИИ            -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <div style="margin-top: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+                <img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);">
+                <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                <span style="color: #1E3A0A;">Don't forget your homework!</span>
+            </div>
+            
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА ИГР                                 -->
+        <!-- ============================================ -->
+        <div id="gamesPage" class="page" style="display: none;">
+            <h1>🎮 Mini-Games</h1>
+            <p style="color: #4A9B22; margin-bottom: 1rem;">Learn while playing with Newton!</p>
+            
+            <div class="games-grid" id="gamesGrid"></div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 8: БЛОК С МАСКОТОМ И ОЧКАМИ       -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <div style="display: flex; align-items: center; gap: 1rem; background: #AED581; padding: 0.8rem; border-radius: 20px; margin-top: 1rem;">
+                <img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);">
+                <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                <span style="color: #1E3A0A;">Newton points: <span id="mascotPoints">150</span></span>
+            </div>
+            
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- ТВОРЧЕСКИЙ РАЗДЕЛ                            -->
+        <!-- ============================================ -->
+        <div id="creativePage" class="page" style="display: none;">
+            <h1>🎨 Creative Space</h1>
+            
+            <div class="creative-tabs">
+                <button class="creative-tab active" id="artTab" onclick="switchCreativeTab('art')">🎨 Art Gallery</button>
+                <button class="creative-tab" id="litTab" onclick="switchCreativeTab('literature')">📚 Literature</button>
+            </div>
+            
+            <!-- Art Feed - сюда будут вставляться посты через JS -->
+            <div id="artFeed" class="feed-container">
+                <!-- Посты создаются в функции fillArtFeed() -->
+            </div>
+            
+            <!-- Literature Feed -->
+            <div id="literatureFeed" class="feed-container" style="display: none;">
+                <!-- Посты создаются в функции fillLiteratureFeed() -->
+            </div>
+            
+            <!-- Кнопка создания поста -->
+            <div style="display: flex; justify-content: center; margin: 1rem 0;">
+                <button class="home-btn" style="background: #4A9B22; color: white;" onclick="openCreatePostModal()">+ Create New Post</button>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 9: МАСКОТ В ТВОРЧЕСКОМ РАЗДЕЛЕ    -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; background: #F1F8E9; padding: 0.8rem; border-radius: 20px; margin: 1rem 0;">
+                <img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);">
+                <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                <span id="creativeMascotMessage">Newton loves art! Get 50+ likes for a grade!</span>
+            </div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 10: ПОПУЛЯРНЫЕ КАНАЛЫ С АВАТАРКАМИ -->
+            <!-- В каждом кружке можно вставить картинку  -->
+            <!-- Размер: 60x60                             -->
+            <!-- ======================================== -->
+            <div style="margin-top: 1rem;">
+                <h3>Popular Channels</h3>
+                <div style="display: flex; gap: 1rem; overflow-x: auto; padding: 0.5rem 0;">
+                    <div style="min-width: 80px; text-align: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #4A9B22; margin: 0 auto;">
+                            <!-- ВСТАВИТЬ: <img src="channel1.jpg" style="width:60px;height:60px;border-radius:50%;"> -->
+                        </div>
+                        <div style="font-size: 0.8rem;">@art_studio</div>
+                    </div>
+                    <div style="min-width: 80px; text-align: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #6B8E23; margin: 0 auto;">
+                            <!-- ВСТАВИТЬ: <img src="channel2.jpg" style="width:60px;height:60px;border-radius:50%;"> -->
+                        </div>
+                        <div style="font-size: 0.8rem;">@writers</div>
+                    </div>
+                    <div style="min-width: 80px; text-align: center;">
+                        <div style="width: 60px; height: 60px; border-radius: 50%; background: #8BC34A; margin: 0 auto;">
+                            <!-- ВСТАВИТЬ: <img src="channel3.jpg" style="width:60px;height:60px;border-radius:50%;"> -->
+                        </div>
+                        <div style="font-size: 0.8rem;">@young_artists</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА ВИДЕО                               -->
+        <!-- ============================================ -->
+        <div id="videosPage" class="page" style="display: none;">
+            <h1>🎥 Video Lessons</h1>
+            <div class="videos-grid" id="videosGrid"></div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 11: МАСКОТ В ВИДЕО                 -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                <img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);">
+                <span style="color: #1E3A0A;">Watch and learn with Newton!</span>
+            </div>
+            
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА КЛАССА                              -->
+        <!-- ============================================ -->
+        <div id="classPage" class="page" style="display: none;">
+            <h1>👥 Our Class</h1>
+            <div class="class-list" id="classList"></div>
+            <!-- В fillClassList() создаются карточки учеников -->
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 12: МАСКОТ В КЛАССЕ                -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-top: 1rem;">
+                <img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);">
+                <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                <span style="color: #1E3A0A;">Class mascot: <span id="classNameMascot">Newton</span></span>
+            </div>
+            
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА НЕЙРОСЕТИ                           -->
+        <!-- ============================================ -->
+        <div id="aiPage" class="page" style="display: none;">
+            <h1><img src="images_yab/mascot.png" style="width:35px; height:35px; border-radius:50%; object-fit:cover; border: 3px solid #4A9B22; box-shadow: 0 0 0 2px white, 0 4px 8px rgba(0,0,0,0.1);"> <span id="aiName">Newton</span></h1>
+            <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.8rem;">
+                <div class="ai-info" style="flex: 1; min-width: 150px;">
+                    📚 All textbooks loaded
+                </div>
+                <div style="display: flex; align-items: center; gap: 0.3rem;">
+                    <!-- ================================ -->
+                    <!-- МЕСТО 13: МАСКОТ В ЧАТЕ         -->
+                    <!-- Размер: 25x25                     -->
+                    <!-- ================================ -->
+                    <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                </div>
+            </div>
+            <div class="ai-chat-container">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message" id="welcomeMessage">
+                        Hi! I'm Newton. I know everything about school. Ask me anything!
+                    </div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type a question..." onkeypress="if(event.key==='Enter') sendMessage()">
+                    <button class="send-btn" onclick="sendMessage()">→</button>
+                </div>
+            </div>
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- СТРАНИЦА ОЦЕНОК                              -->
+        <!-- ============================================ -->
+        <div id="gradesPage" class="page" style="display: none;">
+            <h1>📊 My Grades</h1>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 14: РАМКА ДЛЯ КАРТИНКИ            -->
+            <!-- САМОЕ ВАЖНОЕ МЕСТО ДЛЯ ВАШЕГО РИСУНКА!   -->
+            <!-- Размер: 100x100                           -->
+            <!-- Используйте функцию setGradesPicture()    -->
+            <!-- ======================================== -->
+            <div class="grades-header">
+                <div class="grades-picture-frame" id="gradesPictureFrame">
+                    <img id="gradesCustomImage" src="images_yab/Happy.png">
+                    <!-- КОГДА ВЫ ВЫЗОВЕТЕ setGradesPicture("mydrawing.jpg"), 
+                         картинка появится здесь -->
+                </div>
+                <div>
+                    <h2 style="margin-bottom: 0.2rem;">Academic Progress</h2>
+                    <p style="color: #4A9B22;">Excellent results!</p>
+                </div>
+            </div>
+            
+            <div class="grades-container" id="gradesContainer"></div>
+            
+            <!-- ======================================== -->
+            <!-- МЕСТО 15: МАСКОТ В ОЦЕНКАХ               -->
+            <!-- Размер: 25x25                             -->
+            <!-- ======================================== -->
+            <button class="home-btn" onclick="showPage('home')">← Back to Home</button>
+        </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ИГР                       -->
+    <!-- ============================================ -->
+    <div id="gameModal" class="modal" onclick="if(event.target === this) closeGameModal()">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeGameModal()">&times;</span>
+            <h2 id="modalGameTitle">Game Title</h2>
+            <!-- ======================================== -->
+            <!-- МЕСТО 16: МАСКОТ В МОДАЛЬНОМ ОКНЕ       -->
+            <!-- Размер: 30x30                             -->
+            <!-- ======================================== -->
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; background: #AED581; padding: 0.5rem; border-radius: 20px;">
+                <div style="width: 30px; height: 30px; border-radius: 50%; background: #4A9B22; display: flex; align-items: center; justify-content: center; overflow: hidden; color: white;" id="gameMascotIcon">🐶</div>
+                <!-- ЗДЕСЬ МОЖНО ВСТАВИТЬ КАРТИНКУ МАСКОТА -->
+                <span id="gameMascotName">Newton</span>
+                <span style="margin-left: auto; background: white; padding: 0.2rem 0.8rem; border-radius: 15px;">+10 points</span>
+            </div>
+            <div class="game-area" id="gameArea">
+                <!-- Содержимое игры создается в openGameModal() -->
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ СОЗДАНИЯ ПОСТА -->
+    <div id="createPostModal" class="modal" onclick="if(event.target === this) closeCreatePostModal()">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeCreatePostModal()">&times;</span>
+            <h2>Create New Post</h2>
+            <div style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+                <select id="postType" style="padding: 0.8rem; border-radius: 15px; border: 1px solid #4A9B22;">
+                    <option value="art">🎨 Artwork</option>
+                    <option value="story">📚 Story</option>
+                </select>
+                <input type="text" id="postTitle" placeholder="Title" style="padding: 0.8rem; border-radius: 15px; border: 1px solid #4A9B22;">
+                <textarea id="postContent" placeholder="Description or story text..." rows="5" style="padding: 0.8rem; border-radius: 15px; border: 1px solid #4A9B22;"></textarea>
+                <div style="display: flex; gap: 0.5rem;">
+                    <button style="flex: 1; background: #AED581; border: none; padding: 0.8rem; border-radius: 15px;">Upload Image</button>
+                    <button style="flex: 1; background: #4A9B22; border: none; padding: 0.8rem; border-radius: 15px; color: white;" onclick="publishPost()">Publish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- МОДАЛЬНОЕ ОКНО ДЛЯ ЧТЕНИЯ ИСТОРИЙ -->
+    <div id="storyModal" class="modal" onclick="if(event.target === this) closeStoryModal()">
+        <div class="modal-content story-modal-content">
+            <span class="close-modal" onclick="closeStoryModal()">&times;</span>
+            <h2 id="storyModalTitle">Story Title</h2>
+            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem;">
+                <div class="mini-mascot">🐶</div>
+                <span id="storyAuthor">By @author</span>
+            </div>
+            <div class="full-story-text" id="fullStoryText">
+                Once upon a time...
+            </div>
+            <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                <button class="action-btn" onclick="likeStory()">❤️ <span id="storyLikes">48</span></button>
+                <button class="action-btn">💬 Comment</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================ //
+        // ДАННЫЕ - ЗДЕСЬ МОЖНО МЕНЯТЬ ТЕКСТЫ           //
+        // ============================================ //
+        
+        // Расписание
+        const scheduleData = [
+            { day: "Mon", subjects: [
+                { name: "Math", homework: "p.45 ex.3" },
+                { name: "English", homework: "worksheet" },
+                { name: "Science", homework: "lab report" }
+            ]},
+            { day: "Tue", subjects: [
+                { name: "History", homework: "read ch.5" },
+                { name: "Art", homework: "sketch" },
+                { name: "PE", homework: "sports uniform" }
+            ]},
+            { day: "Wed", subjects: [
+                { name: "Math", homework: "p.48 ex.7" },
+                { name: "Literature", homework: "essay" },
+                { name: "Physics", homework: "formulas" }
+            ]},
+            { day: "Thu", subjects: [
+                { name: "Chemistry", homework: "equations" },
+                { name: "Geography", homework: "map" },
+                { name: "Music", homework: "practice" }
+            ]},
+            { day: "Fri", subjects: [
+                { name: "Biology", homework: "project" },
+                { name: "Math", homework: "test prep" },
+                { name: "English", homework: "vocabulary" }
+            ]},
+            { day: "Sat", subjects: [
+                { name: "Club", homework: "volunteer" }
+            ]},
+            { day: "Sun", subjects: [
+                { name: "Rest", homework: "relax!" }
+            ]}
+        ];
+
+        // Данные для игр
+        const gamesData = [
+            { title: "Math Battle", subject: "Math", emoji: "🧮", desc: "Solve equations", bonus: "+5 points" },
+            { title: "Grammar Quest", subject: "English", emoji: "📝", desc: "Fix sentences", bonus: "+3 points" },
+            { title: "Chem Lab", subject: "Chemistry", emoji: "🧪", desc: "Mix elements", bonus: "+7 points" },
+            { title: "Physics Play", subject: "Physics", emoji: "⚡", desc: "Experiments", bonus: "+4 points" },
+            { title: "History Quiz", subject: "History", emoji: "🏛️", desc: "Guess the date", bonus: "+6 points" },
+            { title: "Bio Puzzle", subject: "Biology", emoji: "🧬", desc: "Build a cell", bonus: "+5 points" }
+        ];
+
+        // Данные для видео
+        const videosData = [
+            { title: "Pythagoras", subject: "Math", emoji: "📐" },
+            { title: "Ohm's Law", subject: "Physics", emoji: "⚡" },
+            { title: "Periodic Table", subject: "Chemistry", emoji: "🧪" },
+            { title: "Photosynthesis", subject: "Biology", emoji: "🌿" },
+            { title: "Past Simple", subject: "English", emoji: "🇬🇧" },
+            { title: "World War II", subject: "History", emoji: "🌍" }
+        ];
+
+        // Данные класса
+        const classData = [
+            { name: "Anna P.", initials: "AP", chatId: "@anna" },
+            { name: "Ivan S.", initials: "IS", chatId: "@ivan" },
+            { name: "Maria I.", initials: "MI", chatId: "@maria" },
+            { name: "Dmitry K.", initials: "DK", chatId: "@dmitry" },
+            { name: "Elena S.", initials: "ES", chatId: "@elena" },
+            { name: "Alex N.", initials: "AN", chatId: "@alex" }
+        ];
+
+        // Данные оценок
+        const gradesData = [
+            { subject: "Math", grades: [5,4,5,5,4], average: "4.6" },
+            { subject: "English", grades: [4,4,5,4], average: "4.3" },
+            { subject: "Science", grades: [5,5,4], average: "4.7" },
+            { subject: "History", grades: [4,4,4], average: "4.0" },
+            { subject: "Art", grades: [5,5,5], average: "5.0" }
+        ];
+
+        // ============================================ //
+        // ДАННЫЕ ДЛЯ ТВОРЧЕСКОГО РАЗДЕЛА              //
+        // ЗДЕСЬ МОЖНО МЕНЯТЬ ПОСТЫ И ДОБАВЛЯТЬ КАРТИНКИ //
+        // ============================================ //
+        
+        // Посты с рисунками (Art Gallery)
+        let artPosts = [
+            { 
+                id: 1, 
+                author: "@art_studio", 
+                authorInitials: "AS", 
+                time: "2h ago", 
+                title: "Sunset", 
+                // ==================================== //
+                // МЕСТО 17: КАРТИНКА В ПОСТЕ ART      //
+                // Вместо эмодзи можно вставить URL    //
+                // image: '<img src="sunset.jpg">',    //
+                // ==================================== //
+                image: "🎨", 
+                likes: 67, 
+                comments: 12, 
+                mascot: "🐶", 
+                graded: true 
+            },
+            { 
+                id: 2, 
+                author: "@young_artist", 
+                authorInitials: "YA", 
+                time: "5h ago", 
+                title: "My Dog", 
+                image: "🐕", 
+                likes: 42, 
+                comments: 8, 
+                mascot: "🐶", 
+                graded: false 
+            },
+            { 
+                id: 3, 
+                author: "@creative_mind", 
+                authorInitials: "CM", 
+                time: "1d ago", 
+                title: "Abstract", 
+                image: "🖼️", 
+                likes: 89, 
+                comments: 23, 
+                mascot: "🐶", 
+                graded: true 
+            }
+        ];
+
+        // Посты с рассказами (Literature)
+        let storyPosts = [
+            { 
+                id: 1, 
+                author: "@writer_anna", 
+                authorInitials: "WA", 
+                time: "3h ago", 
+                title: "The Magic Forest", 
+                // ==================================== //
+                // МЕСТО 18: ОБЛОЖКА КНИГИ             //
+                // Вместо эмодзи: '<img src="forest-cover.jpg">',
+                // ==================================== //
+                cover: "📖", 
+                excerpt: "Once upon a time in a magical forest...", 
+                fullStory: "Once upon a time in a magical forest, there lived a little fairy who loved to help animals. She would fly around and help all the creatures in need. One day, she found a lost baby bird and decided to help it find its way home...", 
+                likes: 48, 
+                comments: 15, 
+                mascot: "🐶", 
+                graded: false 
+            },
+            { 
+                id: 2, 
+                author: "@poet_ivan", 
+                authorInitials: "PI", 
+                time: "1d ago", 
+                title: "Summer Dreams", 
+                cover: "☀️", 
+                excerpt: "Summer is the best time for adventures...", 
+                fullStory: "Summer is the best time for adventures. The sun was shining brightly as we packed our bags for the camping trip. We hiked through the forest, swam in the lake, and told stories by the campfire. It was a summer we would never forget...", 
+                likes: 73, 
+                comments: 21, 
+                mascot: "🐶", 
+                graded: true 
+            },
+            { 
+                id: 3, 
+                author: "@storyteller", 
+                authorInitials: "ST", 
+                time: "2d ago", 
+                title: "Space Journey", 
+                cover: "🚀", 
+                excerpt: "The rocket launched into space...", 
+                fullStory: "The rocket launched into space with a loud roar. Inside, three astronauts prepared for their mission to Mars. They would spend six months traveling through the solar system, conducting experiments and exploring the red planet...", 
+                likes: 56, 
+                comments: 14, 
+                mascot: "🐶", 
+                graded: false 
+            }
+        ];
+
+        // Состояние маскота
+        let mascotPoints = 150;
+        const mascotName = "Newton";
+
+        // ============================================ //
+        // ФУНКЦИИ ПЕРЕКЛЮЧЕНИЯ СТРАНИЦ                 //
+        // ============================================ //
+        function showPage(pageId) {
+            const pages = ['home', 'schedule', 'games', 'creative', 'videos', 'class', 'ai', 'grades'];
+            pages.forEach(p => {
+                const el = document.getElementById(p + 'Page');
+                if (el) el.style.display = 'none';
+            });
+            
+            document.getElementById(pageId + 'Page').style.display = 'block';
+            
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (pageId === 'schedule') fillSchedule();
+            if (pageId === 'games') fillGames();
+            if (pageId === 'creative') { fillArtFeed(); fillLiteratureFeed(); }
+            if (pageId === 'videos') fillVideos();
+            if (pageId === 'class') fillClassList();
+            if (pageId === 'grades') fillGrades();
+            
+            updateAllMascots();
+        }
+
+        // ============================================ //
+        // ФУНКЦИИ ЗАПОЛНЕНИЯ КОНТЕНТОМ                 //
+        // ============================================ //
+        
+        function fillSchedule() {
+            const grid = document.getElementById('scheduleGrid');
+            grid.innerHTML = '';
+            scheduleData.forEach(day => {
+                const card = document.createElement('div');
+                card.className = 'day-card';
+                let subjectsHtml = '';
+                day.subjects.forEach(subj => {
+                    subjectsHtml += `
+                        <div class="subject-item">
+                            <span class="subject-name">${subj.name}</span>
+                            <span class="homework">${subj.homework}</span>
+                        </div>
+                    `;
+                });
+                card.innerHTML = `<h3>${day.day}</h3>${subjectsHtml}`;
+                grid.appendChild(card);
+            });
+        }
+
+        function fillGames() {
+            const grid = document.getElementById('gamesGrid');
+            grid.innerHTML = '';
+            gamesData.forEach(game => {
+                const card = document.createElement('div');
+                card.className = 'game-card';
+                card.onclick = () => openGameModal(game);
+                card.innerHTML = `
+                    <div class="game-emoji">${game.emoji}</div>
+                    <div class="game-title">${game.title}</div>
+                    <span class="game-subject">${game.subject}</span>
+                    <div class="game-mascot-badge">${game.bonus}</div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function fillVideos() {
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+            videosData.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => alert(`Playing: ${video.title}`);
+                card.innerHTML = `
+                    <div class="video-thumbnail">
+                        <div class="play-button">▶</div>
+                        <div style="font-size: 2rem;">${video.emoji}</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="video-title">${video.title}</div>
+                        <span class="video-subject">${video.subject}</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // ============================================ //
+        // МЕСТО 19: ФУНКЦИЯ ЗАПОЛНЕНИЯ КЛАССА         //
+        // ЗДЕСЬ МОЖНО ЗАМЕНИТЬ ИНИЦИАЛЫ НА ФОТО        //
+        // ============================================ //
+        function fillClassList() {
+            const list = document.getElementById('classList');
+            list.innerHTML = '';
+            classData.forEach(student => {
+                const card = document.createElement('div');
+                card.className = 'student-card';
+                card.innerHTML = `
+                    <div class="student-info">
+                        <div class="avatar">${student.initials}</div>
+                        <!-- ВЫШЕ: вместо ${student.initials} можно вставить 
+                             <img src="student-${student.initials}.jpg" style="width:35px;height:35px;border-radius:50%;"> 
+                        -->
+                        <span class="student-name">${student.name}</span>
+                    </div>
+                    <button class="chat-btn" onclick="openChat('${student.chatId}')">💬</button>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function fillGrades() {
+            const container = document.getElementById('gradesContainer');
+            container.innerHTML = '';
+            let total = 0;
+            gradesData.forEach(item => {
+                const gradesHtml = item.grades.map(g => 
+                    `<span class="grade-item">${g}</span>`
+                ).join('');
+                container.innerHTML += `
+                    <div class="subject-grade">
+                        <div class="subject-header">
+                            <h3>${item.subject}</h3>
+                            <span class="average-grade">${item.average}</span>
+                        </div>
+                        <div class="grades-list">${gradesHtml}</div>
+                    </div>
+                `;
+                total += parseFloat(item.average);
+            });
+            document.getElementById('totalAverage').textContent = (total / gradesData.length).toFixed(1);
+        }
+
+        // ============================================ //
+        // ТВОРЧЕСКИЙ РАЗДЕЛ                            //
+        // ============================================ //
+        function switchCreativeTab(tab) {
+            if (tab === 'art') {
+                document.getElementById('artTab').classList.add('active');
+                document.getElementById('litTab').classList.remove('active');
+                document.getElementById('artFeed').style.display = 'flex';
+                document.getElementById('literatureFeed').style.display = 'none';
+            } else {
+                document.getElementById('litTab').classList.add('active');
+                document.getElementById('artTab').classList.remove('active');
+                document.getElementById('artFeed').style.display = 'none';
+                document.getElementById('literatureFeed').style.display = 'flex';
+            }
+        }
+
+        // ============================================ //
+        // МЕСТО 20: ФУНКЦИЯ ЗАПОЛНЕНИЯ ART FEED       //
+        // ЗДЕСЬ МОЖНО ЗАМЕНИТЬ ${post.image} НА КАРТИНКУ //
+        // ============================================ //
+        function fillArtFeed() {
+            const feed = document.getElementById('artFeed');
+            feed.innerHTML = '';
+            artPosts.forEach(post => {
+                const postEl = document.createElement('div');
+                postEl.className = 'feed-post';
+                postEl.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-author-avatar">${post.authorInitials}</div>
+                        <div class="post-author-info">
+                            <div class="post-author-name">${post.author}</div>
+                            <div class="post-time">${post.time}</div>
+                        </div>
+                        <div class="mini-mascot" style="width:30px;height:30px;">${post.mascot}</div>
+                    </div>
+                    <div class="post-content">
+                        <div class="art-image" style="font-size:4rem;">${post.image}</div>
+                        <!-- ЗАМЕНИТЬ ВЫШЕ: 
+                             <div class="art-image">${post.image}</div> 
+                             НА: <div class="art-image"><img src="art-${post.id}.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+                        -->
+                        <div class="art-title">${post.title}</div>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="likePost(${post.id}, 'art')">
+                            ❤️ <span class="like-count" id="art-likes-${post.id}">${post.likes}</span>
+                            <span class="likes-goal">/50 for grade</span>
+                        </button>
+                        <button class="action-btn">💬 ${post.comments}</button>
+                        <button class="action-btn">📤 Share</button>
+                    </div>
+                `;
+                feed.appendChild(postEl);
+            });
+        }
+
+        // ============================================ //
+        // МЕСТО 21: ФУНКЦИЯ ЗАПОЛНЕНИЯ LITERATURE FEED //
+        // ЗДЕСЬ МОЖНО ЗАМЕНИТЬ ${story.cover} НА КАРТИНКУ //
+        // ============================================ //
+        function fillLiteratureFeed() {
+            const feed = document.getElementById('literatureFeed');
+            feed.innerHTML = '';
+            storyPosts.forEach(story => {
+                const postEl = document.createElement('div');
+                postEl.className = 'feed-post';
+                postEl.innerHTML = `
+                    <div class="post-header">
+                        <div class="post-author-avatar">${story.authorInitials}</div>
+                        <div class="post-author-info">
+                            <div class="post-author-name">${story.author}</div>
+                            <div class="post-time">${story.time}</div>
+                        </div>
+                        <div class="mini-mascot" style="width:30px;height:30px;">${story.mascot}</div>
+                    </div>
+                    <div class="post-content">
+                        <div class="story-cover" style="font-size:3rem;">${story.cover}</div>
+                        <!-- ЗАМЕНИТЬ ВЫШЕ:
+                             <div class="story-cover">${story.cover}</div>
+                             НА: <div class="story-cover"><img src="cover-${story.id}.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+                        -->
+                        <div class="art-title">${story.title}</div>
+                        <div class="story-text">${story.excerpt}</div>
+                        <button class="read-btn" onclick="openStory(${story.id})">📖 Read</button>
+                    </div>
+                    <div class="post-actions">
+                        <button class="action-btn" onclick="likePost(${story.id}, 'story')">
+                            ❤️ <span class="like-count" id="story-likes-${story.id}">${story.likes}</span>
+                            <span class="likes-goal">/50 for grade</span>
+                        </button>
+                        <button class="action-btn">💬 ${story.comments}</button>
+                        <button class="action-btn">📤 Share</button>
+                    </div>
+                `;
+                feed.appendChild(postEl);
+            });
+        }
+
+        // Функция лайков
+        function likePost(id, type) {
+            if (type === 'art') {
+                const post = artPosts.find(p => p.id === id);
+                post.likes++;
+                document.getElementById(`art-likes-${id}`).textContent = post.likes;
+                
+                if (post.likes >= 50 && !post.graded) {
+                    alert("🎉 Congratulations! Your artwork reached 50+ likes! A grade of 5 has been added to your journal!");
+                    post.graded = true;
+                    mascotPoints += 20;
+                    document.getElementById('mascotPoints').textContent = mascotPoints;
+                }
+            } else {
+                const story = storyPosts.find(s => s.id === id);
+                story.likes++;
+                document.getElementById(`story-likes-${id}`).textContent = story.likes;
+                
+                if (story.likes >= 50 && !story.graded) {
+                    alert("📚 Amazing! Your story reached 50+ likes! You got a 5 in Literature!");
+                    story.graded = true;
+                    mascotPoints += 20;
+                    document.getElementById('mascotPoints').textContent = mascotPoints;
+                }
+            }
+        }
+
+        function openStory(id) {
+            const story = storyPosts.find(s => s.id === id);
+            document.getElementById('storyModalTitle').textContent = story.title;
+            document.getElementById('storyAuthor').textContent = `By ${story.author}`;
+            document.getElementById('fullStoryText').textContent = story.fullStory;
+            document.getElementById('storyLikes').textContent = story.likes;
+            document.getElementById('storyModal').style.display = 'flex';
+        }
+
+        function closeStoryModal() {
+            document.getElementById('storyModal').style.display = 'none';
+        }
+
+        function openCreatePostModal() {
+            document.getElementById('createPostModal').style.display = 'flex';
+        }
+
+        function closeCreatePostModal() {
+            document.getElementById('createPostModal').style.display = 'none';
+        }
+
+        function publishPost() {
+            const type = document.getElementById('postType').value;
+            const title = document.getElementById('postTitle').value;
+            const content = document.getElementById('postContent').value;
+            
+            if (type === 'art') {
+                const newPost = {
+                    id: artPosts.length + 1,
+                    author: "@you",
+                    authorInitials: "U",
+                    time: "Just now",
+                    title: title,
+                    image: "🖼️",
+                    likes: 0,
+                    comments: 0,
+                    mascot: "🐶",
+                    graded: false
+                };
+                artPosts.unshift(newPost);
+                fillArtFeed();
+            } else {
+                const newStory = {
+                    id: storyPosts.length + 1,
+                    author: "@you",
+                    authorInitials: "U",
+                    time: "Just now",
+                    title: title,
+                    cover: "📖",
+                    excerpt: content.substring(0, 100) + "...",
+                    fullStory: content,
+                    likes: 0,
+                    comments: 0,
+                    mascot: "🐶",
+                    graded: false
+                };
+                storyPosts.unshift(newStory);
+                fillLiteratureFeed();
+            }
+            
+            closeCreatePostModal();
+            alert("Post published! Start getting likes for a grade!");
+        }
+
+        // ============================================ //
+        // ФУНКЦИИ ИГР                                  //
+        // ============================================ //
+        function openGameModal(game) {
+            document.getElementById('modalGameTitle').textContent = game.title;
+            
+            document.getElementById('gameMascotIcon').innerHTML = '🐶';
+            document.getElementById('gameMascotName').textContent = mascotName;
+            
+            let gameTask = '';
+            switch(game.subject) {
+                case 'Math':
+                    gameTask = '5 + 3 × 2 = ?';
+                    break;
+                case 'English':
+                    gameTask = 'Choose correct: "I ___ a student"';
+                    break;
+                case 'Chemistry':
+                    gameTask = 'H₂O is...?';
+                    break;
+                default:
+                    gameTask = 'Choose the correct answer!';
+            }
+            
+            document.getElementById('gameArea').innerHTML = `
+                <div style="font-size: 2rem;">${game.emoji}</div>
+                <p>${game.desc}</p>
+                <div style="font-size: 1.5rem; margin: 0.5rem 0;">${gameTask}</div>
+                <div style="display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;">
+                    <button style="background: #AED581; border: none; padding: 0.5rem 1rem; border-radius: 15px;" onclick="gameCorrect()">Answer 1</button>
+                    <button style="background: #8BC34A; border: none; padding: 0.5rem 1rem; border-radius: 15px;" onclick="gameCorrect()">Answer 2</button>
+                    <button style="background: #4A9B22; border: none; padding: 0.5rem 1rem; border-radius: 15px; color: white;" onclick="gameCorrect()">Answer 3</button>
+                </div>
+            `;
+            
+            document.getElementById('gameModal').style.display = 'flex';
+        }
+
+        function gameCorrect() {
+            mascotPoints += 5;
+            document.getElementById('mascotPoints').textContent = mascotPoints;
+            alert(`+5 points for Newton! Total: ${mascotPoints}`);
+            closeGameModal();
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameModal').style.display = 'none';
+        }
+
+        // ============================================ //
+        // МЕСТО 22: ФУНКЦИЯ ОБНОВЛЕНИЯ ВСЕХ МАСКОТОВ  //
+        // ЗДЕСЬ МОЖНО ЗАМЕНИТЬ ВСЕХ '🐶' НА КАРТИНКИ  //
+        // ============================================ //
+        function updateAllMascots() {
+            // Эта функция обновляет все маленькие маскоты (класс .mini-mascot)
+            const miniMascots = document.querySelectorAll('.mini-mascot');
+            miniMascots.forEach(el => {
+                // ЗДЕСЬ МОЖНО ЗАМЕНИТЬ:
+                // el.innerHTML = '🐶'; 
+                // НА:
+                // el.innerHTML = '<img src="mini-mascot.jpg" style="width:100%;height:100%;object-fit:cover;">';
+                el.innerHTML = '🐶'; // ПОКА ЭМОДЗИ, ЗАМЕНИТЕ НА КАРТИНКУ
+            });
+            
+            // Обновление всех имен
+            document.getElementById('aiName').textContent = mascotName;
+            document.getElementById('welcomeMessage').textContent = `Hi! I'm ${mascotName}. I know everything about school. Ask me anything!`;
+            document.getElementById('classNameMascot').textContent = mascotName;
+            document.getElementById('mascotNameHeader').textContent = mascotName;
+            document.getElementById('homeMascotMessage').innerHTML = `${mascotName} is here! Need help? Check out the Help Center above!`;
+            document.getElementById('creativeMascotMessage').innerHTML = `${mascotName} loves art! Get 50+ likes for a grade!`;
+            document.getElementById('gameMascotName').textContent = mascotName;
+        }
+
+        function openChat(chatId) {
+            alert(`Chat with ${chatId} (demo mode)`);
+        }
+
+        // ============================================ //
+        // МЕСТО 23: ФУНКЦИЯ ДЛЯ ВСТАВКИ КАРТИНКИ      //
+        // В РАМКУ НА СТРАНИЦЕ ОЦЕНОК                   //
+        // ============================================ //
+        function setGradesPicture(imageUrl) {
+            // ВЫЗЫВАЙТЕ ЭТУ ФУНКЦИЮ, ЧТОБЫ ВСТАВИТЬ КАРТИНКУ В РАМКУ
+            // Например: setGradesPicture("mydrawing.jpg");
+            // ИЛИ: setGradesPicture("images/school-banner.png");
+            
+            const frame = document.getElementById('gradesPictureFrame');
+            const img = document.getElementById('gradesCustomImage');
+            const placeholder = document.getElementById('gradesFramePlaceholder');
+            
+            if (imageUrl) {
+                img.src = imageUrl;
+                img.style.display = 'block';
+                placeholder.style.display = 'none';
+            } else {
+                img.style.display = 'none';
+                placeholder.style.display = 'block';
+            }
+        }
+
+        // ============================================ //
+        // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ                   //
+        // ============================================ //
+        window.onload = function() {
+            showPage('home');
+            updateAllMascots();
+            
+            // ======================================== //
+            // МЕСТО 24: ВСТАВЬТЕ СЮДА СВОЮ КАРТИНКУ   //
+            // РАСКОММЕНТИРУЙТЕ И УКАЖИТЕ ПУТЬ К ФАЙЛУ //
+            // ======================================== //
+            
+            // ПРИМЕР: setGradesPicture("my-mascot.jpg");
+            // ЗАМЕНИТЕ "my-mascot.jpg" НА НАЗВАНИЕ ВАШЕГО ФАЙЛА
+            // setGradesPicture("мой_рисунок.png");
+            
+            // ЕСЛИ КАРТИНКА В ПАПКЕ images:
+            // setGradesPicture("images/school-banner.jpg");
+        };
+    </script>
+</body>
+</html>
